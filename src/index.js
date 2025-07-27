@@ -1,20 +1,34 @@
+require('dotenv').config();
 const { Client, ActivityType } = require("discord.js");
 const { ReactionRole } = require("discordjs-reaction-role");
 const { reactionRoleConfig } = require("./configs/reactionRoleConfig");
 const { getRandomFact } = require("./commands/randomFact");
 const { waterReply } = require("./commands/water");
-const dotenv = require("dotenv");
-dotenv.config();
 
 // verify tokens are available
 // removed from config.js due to javascript bug
-const { DISCORD_TOKEN, DISCORD_CLIENT_ID, SERVER_ID, CHANNEL_ROLES_ID } = process.env;
+// TODO: outsource?
+const { 
+  DISCORD_TOKEN, 
+  DISCORD_CLIENT_ID, 
+  SERVER_ID, 
+  CHANNEL_ROLES_ID, 
+  MESSAGE_PRONOUNS_ID, 
+  MESSAGE_PINGABLE_ID 
+} = process.env;
 
-if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID || !SERVER_ID || !CHANNEL_ROLES_ID) {
+if (
+  !DISCORD_TOKEN || 
+  !DISCORD_CLIENT_ID || 
+  !SERVER_ID || 
+  !CHANNEL_ROLES_ID || 
+  !MESSAGE_PRONOUNS_ID || 
+  !MESSAGE_PINGABLE_ID
+) {
   throw new Error("Missing environment variables");
 }
 
-// initialize bot
+// setup bot
 const client = new Client({
   partials: ["MESSAGE", "REACTION"],
   intents: ["Guilds", "GuildMessages", "GuildMessageReactions", "MessageContent"],
@@ -23,7 +37,7 @@ const client = new Client({
 // initialize reaction roles
 const rr = new ReactionRole(client, reactionRoleConfig);
 
-// set bot to online, watching AoT
+// initialize
 client.once("ready", async () => {
   console.log("Discord bot is ready! 🤖");
 
@@ -32,13 +46,14 @@ client.once("ready", async () => {
     const guild = await client.guilds.fetch(SERVER_ID);
     const channel = await guild.channels.fetch(CHANNEL_ROLES_ID);
 
-    // Fetch both messages
-    await channel.messages.fetch("884731376241369118");
-    await channel.messages.fetch("884831953667358720");
+    // fetch both messages
+    await channel.messages.fetch(MESSAGE_PRONOUNS_ID);
+    await channel.messages.fetch(MESSAGE_PINGABLE_ID);
   } catch (err) {
     console.error("Failed to fetch reaction role messages:", err);
   }
 
+  // appear as online, watching AoT
   if (client.user) {
     client.user.setPresence({
       activities: [
