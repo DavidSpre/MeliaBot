@@ -1,0 +1,33 @@
+{
+  "name": "meliabot",
+  "version": "1.0.0",
+  "description": "A simple discord bot themed around the character Melia Antiqua from the videogame Xenoblade Chronicles",
+  "keywords": [
+    "discord",
+    "bot",
+    "melia",
+    "xenoblade",
+    "chronicles"
+  ],
+  "homepage": "https://github.com/DavidSpre/MeliaBot#readme",
+  "bugs": {
+    "url": "https://github.com/DavidSpre/MeliaBot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidSpre/MeliaBot.git"
+  },
+  "license": "UNLICENSED",
+  "author": "David Sprengart",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1",
+    "https": "^1.0.0"
+  }
+}
