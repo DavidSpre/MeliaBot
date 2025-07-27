@@ -8,9 +8,9 @@ dotenv.config();
 
 // verify tokens are available
 // removed from config.js due to javascript bug
-const { DISCORD_TOKEN, DISCORD_CLIENT_ID } = process.env;
+const { DISCORD_TOKEN, DISCORD_CLIENT_ID, SERVER_ID, CHANNEL_ROLES_ID } = process.env;
 
-if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID) {
+if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID || !SERVER_ID || !CHANNEL_ROLES_ID) {
   throw new Error("Missing environment variables");
 }
 
@@ -24,8 +24,21 @@ const client = new Client({
 const rr = new ReactionRole(client, reactionRoleConfig);
 
 // set bot to online, watching AoT
-client.once("ready", () => {
+client.once("ready", async () => {
   console.log("Discord bot is ready! 🤖");
+
+  // cache messages for reaction roles
+  try {
+    const guild = await client.guilds.fetch(SERVER_ID);
+    const channel = await guild.channels.fetch(CHANNEL_ROLES_ID);
+
+    // Fetch both messages
+    await channel.messages.fetch("884731376241369118");
+    await channel.messages.fetch("884831953667358720");
+  } catch (err) {
+    console.error("Failed to fetch reaction role messages:", err);
+  }
+
   if (client.user) {
     client.user.setPresence({
       activities: [

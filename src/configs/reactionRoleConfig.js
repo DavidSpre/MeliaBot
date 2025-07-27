@@ -1,4 +1,5 @@
 // define roles
+// TODO: move ids into .env?
 const reactionRoleConfig = [
     // pronouns
     { messageId: "884731376241369118", reaction: "❤️", roleId: "884730013088366632" }, // :heart:
