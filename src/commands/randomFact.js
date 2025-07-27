@@ -1,7 +1,7 @@
-import https from "https";
+const https = require("https");
 const factURL = "https://nekos.life/api/v2/fact";
 
-export async function getRandomFact(message) {
+const getRandomFact = async function(message) {
   https.get(`${factURL}`, (data) => {
     data.on("data", (chunk) => {
       let Fact = JSON.parse(chunk.toString());
@@ -13,3 +13,5 @@ export async function getRandomFact(message) {
     });
   });
 }
+
+module.exports = { getRandomFact };

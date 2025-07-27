@@ -19,11 +19,11 @@
   },
   "license": "UNLICENSED",
   "author": "David Sprengart",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/index.js"
+    "start": "node src/index.js"
   },
   "dependencies": {
     "discord.js": "^14.21.0",
