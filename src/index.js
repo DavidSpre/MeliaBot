@@ -1,4 +1,6 @@
 const { Client, ActivityType } = require("discord.js");
+const { ReactionRole } = require("discordjs-reaction-role");
+const { reactionRoleConfig } = require("./configs/reactionRoleConfig");
 const { getRandomFact } = require("./commands/randomFact");
 const { waterReply } = require("./commands/water");
 const dotenv = require("dotenv");
@@ -14,8 +16,12 @@ if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID) {
 
 // initialize bot
 const client = new Client({
-  intents: ["Guilds", "GuildMessages", "DirectMessages", "MessageContent"],
+  partials: ["MESSAGE", "REACTION"],
+  intents: ["Guilds", "GuildMessages", "GuildMessageReactions", "MessageContent"],
 });
+
+// initialize reaction roles
+const rr = new ReactionRole(client, reactionRoleConfig);
 
 // set bot to online, watching AoT
 client.once("ready", () => {
@@ -43,3 +49,11 @@ client.on("messageCreate", async (message) => {
 
 // start process
 client.login(DISCORD_TOKEN);
+
+// stop the bot when the process is closed (via Ctrl-C).
+const destroy = () => {
+  rr.teardown();
+  client.destroy();
+};
+process.on("SIGINT", destroy);
+process.on("SIGTERM", destroy);
