@@ -31,7 +31,7 @@
     "dotenv": "^17.2.1",
     "https": "^1.0.0"
   },
-  "devDependencies": {
-    "node": "^22.17.1"
+  "engines": {
+    "node": ">=22.14.0"
   }
 }
