@@ -8,6 +8,7 @@ const { getRandomFact } = require("./commands/randomFact");
 const { waterReply } = require("./commands/water");
 const { isAdmin } = require("./utils/utils");
 const { sendEmbed } = require("./commands/sendEmbed");
+const { sendRandomQuote } = require("./commands/sendRandomQuote");
 const { reactionRoleConfig } = require("./configs/reactionRoleConfig");
 const { config } = require("./configs/config");
 
@@ -55,7 +56,8 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
 
   if (message.content.toLowerCase() === "summon fact") await getRandomFact(message);
-  else if(isAdmin(message) && message.content.toLowerCase().startsWith("summon embed")) sendEmbed(message);
+  else if (isAdmin(message) && message.content.toLowerCase().startsWith("summon embed")) sendEmbed(message);
+  else if (message.content.toLowerCase() === "summon quote") sendRandomQuote(message);
   else if (message.content.toLowerCase().includes("water")) waterReply(message);
 });
 
