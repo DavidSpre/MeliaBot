@@ -39,6 +39,7 @@ const quotes = [
     "The sense of unity in our group means a great deal to me. I would not sacrifice it for anything.",
     "Is it not a crown princess' duty to collect monies owed to Alcamoth?",
     "Splish splash, flip flap?",
+    "Amogus",
     "You've turned the gloomy cloud over my head into sunshine. Just being here with you is enough for me. Thank you.",
     "My fallen brethren, I promise to live my life to the fullest. Look over me as I journey on…",
     "What one sister has, the other craves. And we cannot have that!",
